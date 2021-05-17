@@ -17,10 +17,20 @@ class BaseModel():
     updated_at = ""
     id = ""
 
-    def __init__(self):
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
-        self.id = str(uuid.uuid4())
+    def __init__(self, *args, **kwargs):
+        if not kwargs or len(kwargs) == 0:
+            self.created_at = datetime.today()
+            self.updated_at = datetime.today()
+            self.id = str(uuid.uuid4())
+        else:
+            for k in kwargs:
+                if k == "__class__":
+                    continue
+                if k == "created_at" or k == "updated_at":
+                    obj = datetime.strptime(kwargs[k], '%Y-%m-%dT%H:%M:%S.%f')
+                    setattr(self, k, obj)
+                    continue
+                setattr(self, k, kwargs[k])
         BaseModel.count += 1
 
     def save(self):
