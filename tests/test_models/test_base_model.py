@@ -24,12 +24,15 @@ class TestBaseModel(unittest.TestCase):
 
     def test_str_output(self):
         bm1 = BaseModel()
-        self.assertNotEqual(bm1.__str__(), "")
+        self.assertIn("BaseModel", bm1.__str__())
+        self.assertIn(str(bm1.id), bm1.__str__())
+        self.assertIn(str(bm1.__dict__), bm1.__str__())
 
     def test_save_method(self):
         bm1 = BaseModel()
         original = bm1.updated_at
-        new = bm1.save()
+        bm1.save()
+        new = bm1.updated_at
         self.assertNotEqual(original, new)
 
     def test_to_dict_method(self):
