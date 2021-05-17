@@ -40,5 +40,14 @@ class TestBaseModel(unittest.TestCase):
         my_dict = bm1.to_dict()
         self.assertIn("__class__", my_dict.keys())
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_init_kwargs(self):
+        bm1 = BaseModel()
+        bm1_dict = bm1.to_dict()
+        bm2 = BaseModel(**bm1_dict)
+        self.assertEqual(type(bm2), type(bm1))
+        self.assertIsNot(bm2, bm1)
+        self.assertEqual(bm2.id, bm1.id)
+        self.assertEqual(bm2.created_at, bm1.created_at)
+
+    if __name__ == '__main__':
+        unittest.main()
