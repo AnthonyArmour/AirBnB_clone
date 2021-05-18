@@ -32,4 +32,5 @@ class FileStorage():
             with open(FileStorage.__file_path, 'r') as fh:
                 objs_str = fh.read()
             obj_lst = json.loads(objs_str)
-            FileStorage.__objects = obj_lst[0]
+            for k in FileStorage.__objects:
+                FileStorage.__objects[k] = BaseModel(**dict(FileStorage.__objects[k]))
