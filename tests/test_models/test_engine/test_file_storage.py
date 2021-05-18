@@ -8,24 +8,24 @@ from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
 
-fs = FileStorage()
-
-
 class TestBaseModel(unittest.TestCase):
     """A class to test FileStorage"""
 
     def test_filestorage_reload(self):
+        fs = FileStorage()
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         bm1 = BaseModel()
         bm1.save()
-        dic = fs._FileStorage__objects
+        fs.reload()
+        dic = fs._FileStorage__objects.copy()
         bm1.my_number = 89
         self.assertEqual(bm1.my_number, 89)
         fs.reload()
-        self.assertEqual(dic, fs._FileStorage__objects)
+        self.assertNotEqual(dic, fs._FileStorage__objects)
 
     def test_filestorage_save(self):
+        fs = FileStorage()
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         bm1 = BaseModel()
@@ -33,18 +33,23 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(os.path.getsize(fs._FileStorage__file_path), 0)
 
     def test_filestorage_new(self):
+        fs = FileStorage()
+        fs_all = fs.all().copy()
         bm1 = BaseModel()
         self.assertNotEqual(len(fs._FileStorage__objects), 0)
 
     def test_filestorage_all(self):
+        fs = FileStorage()
         bm1 = BaseModel()
         self.assertIsInstance(fs.all(), dict)
 
     def test_filestorage_objects(self):
+        fs = FileStorage()
         bm1 = BaseModel()
         self.assertIsInstance(fs._FileStorage__objects, dict)
 
     def test_file_exists(self):
+        fs = FileStorage()
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         bm1 = BaseModel()
