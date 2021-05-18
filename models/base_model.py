@@ -6,6 +6,7 @@ for the classes in AirBnb project
 
 from datetime import datetime
 import uuid
+from models import storage
 
 
 class BaseModel():
@@ -22,6 +23,7 @@ class BaseModel():
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
             self.id = str(uuid.uuid4())
+            storage.new(self.to_dict())
         else:
             for k in kwargs:
                 if k == "__class__":
@@ -36,6 +38,7 @@ class BaseModel():
     def save(self):
         """updates instance attribute update_at"""
         self.updated_at = datetime.today()
+        storage.save()
 
     def to_dict(self):
         """returns dictionary of instance attributes"""
