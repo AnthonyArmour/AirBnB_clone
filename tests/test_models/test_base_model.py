@@ -16,6 +16,8 @@ class TestBaseModel(unittest.TestCase):
     """A class to test BaseModel"""
 
     def test_filestorage_reload(self):
+        if os.path.exists(fs._FileStorage__file_path):
+            os.remove(fs._FileStorage__file_path)
         bm1 = BaseModel()
         bm1.save()
         dic = fs._FileStorage__objects
@@ -25,6 +27,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(dic, fs._FileStorage__objects)
 
     def test_filestorage_save(self):
+        if os.path.exists(fs._FileStorage__file_path):
+            os.remove(fs._FileStorage__file_path)
         bm1 = BaseModel()
         bm1.save()
         self.assertNotEqual(os.path.getsize(fs._FileStorage__file_path), 0)
@@ -43,6 +47,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(fs._FileStorage__objects, dict)
 
     def test_file_exists(self):
+        if os.path.exists(fs._FileStorage__file_path):
+            os.remove(fs._FileStorage__file_path)
         bm1 = BaseModel()
         bm1.save()
         self.assertTrue(os.path.exists(fs._FileStorage__file_path))
