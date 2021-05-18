@@ -23,7 +23,7 @@ class BaseModel():
             self.created_at = datetime.today()
             self.updated_at = datetime.today()
             self.id = str(uuid.uuid4())
-            storage.new(self.to_dict())
+            storage.new(self)
         else:
             for k in kwargs:
                 if k == "__class__":
