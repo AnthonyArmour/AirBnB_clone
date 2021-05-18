@@ -36,7 +36,7 @@ class TestBaseModel(unittest.TestCase):
         fs = FileStorage()
         fs_all = fs.all().copy()
         bm1 = BaseModel()
-        self.assertNotEqual(len(fs._FileStorage__objects), 0)
+        self.assertNotEqual(fs.all(), fs_all)
 
     def test_filestorage_all(self):
         fs = FileStorage()
