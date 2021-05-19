@@ -5,6 +5,7 @@
 import cmd
 import string, sys
 from models.base_model import BaseModel
+from models.user import User
 from models.engine.file_storage import FileStorage
 import models
 
