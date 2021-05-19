@@ -12,8 +12,8 @@ class HBNBCommand(cmd.Cmd):
     """A class:
         The class creates a console for updating the storage engine
     """
-    class_lst = ["BaseModel"]
-        #, "User", "State", "City", "Amenity", "Place", "Review"
+    class_lst = ["BaseModel", "User"]
+        #, "State", "City", "Amenity", "Place", "Review"
     prompt = "(hbnb) "
 
     def do_EOF(self, arg):
