@@ -14,10 +14,7 @@ class HBNBCommand(cmd.Cmd):
     """
     class_lst = ["BaseModel"]
         #, "User", "State", "City", "Amenity", "Place", "Review"
-
-    def __init__(self):
-        cmd.Cmd.__init__(self)
-        self.prompt = "(hbnb) "
+    prompt = "(hbnb) "
 
     def do_EOF(self, arg):
         return True
