@@ -20,28 +20,28 @@ class TestUser(unittest.TestCase):
             os.remove(fs._FileStorage__file_path)
         u1 = User()
         u1.email = "blah"
-        self.assertIsInstance(u1.email, str)
+        self.assertEqual(u1.email, "blah")
 
     def test_password(self):
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         u1 = User()
         u1.password = "blah"
-        self.assertIsInstance(u1.password, str)
+        self.assertEqual(u1.password, "blah")
 
     def test_first_name(self):
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         u1 = User()
         u1.first_name = "blah"
-        self.assertIsInstance(u1.first_name, str)
+        self.assertEqual(u1.first_name, "blah")
 
     def test_last_name(self):
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         u1 = User()
         u1.last_name = "blah"
-        self.assertIsInstance(u1.last_name, str)
+        self.assertEqual(u1.last_name, "blah")
 
     if __name__ == '__main__':
         unittest.main()
