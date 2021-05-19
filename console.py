@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print("** class name missing **")
         elif args[0] not in self.class_lst:
-            print("** class doesn't exist")
+            print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
         else:
@@ -116,20 +116,25 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         sig = 0
-        args = arg.split()
-        if len(args) < 1:
+        if arg:
+            args = arg.split()
+        else:
             print("** class name missing **")
-        elif args[0] not in self.class_lst:
+            return
+        if args[0] not in self.class_lst:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
-        for k in models.storage._FileStorage__objects:
-            if args[1] in k:
-                key = k
-                sig = 1
-        if sig == 0:
-            print("** no instance found **")
-        elif len(args) < 3:
+            return
+        else:
+            for k in models.storage._FileStorage__objects:
+                if args[1] in k:
+                    key = k
+                    sig = 1
+            if sig == 0:
+                print("** no instance found **")
+                return
+        if len(args) < 3:
             print("** attribute name missing **")
         elif len(args) < 4:
             print("** value missing **")
