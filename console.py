@@ -53,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print("** class name missing **")
         elif args[0] not in self.class_lst:
-            print("** class doesn't exist")
+            print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
         else:
@@ -81,12 +81,12 @@ class HBNBCommand(cmd.Cmd):
             for key in models.storage._FileStorage__objects:
                 if args[1] in key:
                     new_key = key
-                    models.storage.save()
                     sig = 1
             if sig == 0:
                 print("** no instance found **")
             else:
                 del models.storage._FileStorage__objects[new_key]
+                models.storage.save()
                 count = eval(args[0] + ".count")
                 count -= 1
 
@@ -119,11 +119,11 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in class_lst:
+        elif args[0] not in self.class_lst:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
-        for k in models.storage._FileStorage.__objects:
+        for k in models.storage._FileStorage__objects:
             if args[1] in k:
                 key = k
                 sig = 1
@@ -135,13 +135,17 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
         else:
             dic = models.storage._FileStorage__objects[key]
-            attr = dic.get(dic[args[2]], {})
-            if type(attr) is int:
-                dic[args[2]] = int(args[3])
-            elif type(attr) is float:
-                dic[args[2]] = float(args[3])
-            elif type(attr) is str:
-                dic[args[2]] = str(args[3])
+            try:
+                attr = getattr(dic, args[2])
+                if type(attr) is int:
+                    setattr(dic, args[2], int(args[3][1:-1]))
+                elif type(attr) is float:
+                    setattr(dic, args[2], float(args[3][1:-1]))
+                elif type(attr) is str:
+                    setattr(dic, args[2], str(args[3][1:-1]))
+            except:
+                setattr(dic, args[2], str(args[3][1:-1]))
+            models.storage.save()
 
     def help_update(self):
         print("syntax: update 'class name' 'object id' 'attribute'"
