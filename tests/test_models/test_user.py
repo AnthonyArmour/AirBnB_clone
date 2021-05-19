@@ -2,7 +2,6 @@
 """A module for unittests for the user class"""
 
 
-
 import unittest
 import os
 from models.user import User
@@ -13,6 +12,7 @@ fs = FileStorage()
 
 
 class TestUser(unittest.TestCase):
+
     """class to test User"""
 
     def test_email(self):
