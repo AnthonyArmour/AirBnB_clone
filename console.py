@@ -32,6 +32,13 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     def default(self, line):
+        """ Default overload:
+            Splits argument into class, command, id, and arguments
+            Uses command to call class method
+            Uses id to call instance of class
+            Uses arguments to change instance
+            Update loops to update each given attribute in dictionary
+        """
         try:
             line_lst = line.split(".")
             cls = line_lst[0]
@@ -48,6 +55,30 @@ class HBNBCommand(cmd.Cmd):
             if cmd == "count":
                 count = eval(cls + "." + cmd)
                 print("{}".format(count))
+            if cmd == "update":
+                args_lst = args.split(", ", 1)
+                if ":" not in args_lst[1]:
+                    args_lst = args.split(",")
+                    self.do_update(cls + " " + args_lst[0][1:-1] +
+                                   " " + args_lst[1][2:-1] + args_lst[2])
+                else:
+                    c_lst = ["{", "'", ":", '"', "}"]
+                    idnum = args_lst[0][1:-1]
+                    dic = args_lst[1]
+                    dic_str = ""
+                    for c in dic:
+                        if c in c_lst:
+                            continue
+                        else:
+                            dic_str += c
+                    attr_lst = dic_str.split(", ")
+                    for item in attr_lst:
+                        print(item)
+                        kv_lst = item.split(" ")
+                        k = kv_lst[0] + " "
+                        v = '"' + kv_lst[1] + '"'
+                        print(cls + " " + idnum + " " + k + v)
+                        self.do_update(cls + " " + idnum + " " + k + v)
         except:
             print("*** Unknown syntax: {}".format(line))
 
