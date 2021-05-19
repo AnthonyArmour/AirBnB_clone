@@ -41,7 +41,7 @@ class BaseModel():
     def to_dict(self):
         """returns dictionary of instance attributes"""
         dic = self.__dict__.copy()
-        dic["__class__"] = BaseModel.__name__
+        dic["__class__"] = type(self).__name__
         dic["created_at"] = self.created_at.isoformat()
         dic["updated_at"] = self.updated_at.isoformat()
         return dic
@@ -52,5 +52,5 @@ class BaseModel():
 
     def __str__(self):
         """returns printable string of object"""
-        st = "[{}] ({}) {}".format(BaseModel.__name__, self.id, self.__dict__)
+        st = "[{}] ({}) {}".format(type(self).__name__, self.id, self.__dict__)
         return st
