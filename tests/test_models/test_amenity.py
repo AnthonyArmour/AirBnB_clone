@@ -19,7 +19,6 @@ class TestUser(unittest.TestCase):
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         u1 = Amenity()
-        u1.name = "blah"
         self.assertIsInstance(u1.name, str)
 
     if __name__ == '__main__':

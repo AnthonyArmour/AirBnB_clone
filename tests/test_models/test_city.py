@@ -10,6 +10,7 @@ from models.engine.file_storage import FileStorage
 
 
 fs = FileStorage()
+u1 = City()
 
 
 class TestUser(unittest.TestCase):
@@ -25,7 +26,6 @@ class TestUser(unittest.TestCase):
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         u1 = City()
-        u1.name = "blah"
         self.assertIsInstance(u1.name, str)
 
     if __name__ == '__main__':
