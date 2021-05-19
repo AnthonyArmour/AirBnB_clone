@@ -31,6 +31,17 @@ class HBNBCommand(cmd.Cmd):
         "Review"]
     prompt = "(hbnb) "
 
+    def default(self, line):
+        try:
+            line_lst = line.split(".")
+            cls = line_lst[0]
+            cmd = line_lst[1][:-2]
+            if cmd == "count":
+                count = eval(cls + "." + cmd)
+                print("{}".format(count))
+        except:
+            print("*** Unknown syntaxi: {}".format(line))
+
     def do_EOF(self, arg):
         return True
 
@@ -76,6 +87,7 @@ class HBNBCommand(cmd.Cmd):
                 if args[1] in key and args[0] in key:
                     print(str(models.storage._FileStorage__objects[key]))
                     sig = 1
+                    break
             if sig == 0:
                 print("** no instance found **")
 
@@ -93,10 +105,12 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) < 2:
             print("** instance id missing **")
         else:
+            argstr = args[0] + "." + args[1]
             for key in models.storage._FileStorage__objects:
-                if args[1] in key and args[0] in key:
+                if argstr in key:
                     new_key = key
                     sig = 1
+                    break
             if sig == 0:
                 print("** no instance found **")
             else:
