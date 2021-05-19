@@ -45,5 +45,8 @@ class FileStorage():
             for k in obj_dic:
                 FileStorage.__objects[k] = obj_dic[k]
             for k in FileStorage.__objects:
-                FileStorage.__objects[k] = BaseModel(
+                key_list = k.split(".")
+                cls = key_list[0]
+                inst = eval(cls)
+                FileStorage.__objects[k] = inst(
                     **dict(FileStorage.__objects[k]))
