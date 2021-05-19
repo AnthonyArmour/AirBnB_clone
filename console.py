@@ -35,12 +35,21 @@ class HBNBCommand(cmd.Cmd):
         try:
             line_lst = line.split(".")
             cls = line_lst[0]
-            cmd = line_lst[1][:-2]
+            cmd_str = "".join(line_lst[1:])
+            cmd_lst = cmd_str.split("(")
+            cmd = cmd_lst[0]
+            args = cmd_lst[1][:-1]
+            if cmd == "destroy":
+                self.do_destroy(cls + " " + args)
+            if cmd == "show":
+                self.do_show(cls + " " + args)
+            if cmd == "all":
+                self.do_all(cls)
             if cmd == "count":
                 count = eval(cls + "." + cmd)
                 print("{}".format(count))
         except:
-            print("*** Unknown syntaxi: {}".format(line))
+            print("*** Unknown syntax: {}".format(line))
 
     def do_EOF(self, arg):
         return True
