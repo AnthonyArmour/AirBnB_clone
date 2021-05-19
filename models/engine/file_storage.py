@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Serializes and deserializes json files"""
 
+
 import json
 import os
 from models.base_model import BaseModel
@@ -10,6 +11,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+
 
 class FileStorage():
     """serializes and deserializes json file"""
@@ -43,4 +45,5 @@ class FileStorage():
             for k in obj_dic:
                 FileStorage.__objects[k] = obj_dic[k]
             for k in FileStorage.__objects:
-                FileStorage.__objects[k] = BaseModel(**dict(FileStorage.__objects[k]))
+                FileStorage.__objects[k] = BaseModel(
+                    **dict(FileStorage.__objects[k]))

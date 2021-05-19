@@ -25,11 +25,12 @@ class BaseModel():
             self.updated_at = self.created_at
             models.storage.new(self)
         else:
+            time_fmt = '%Y-%m-%dT%H:%M:%S.%f'
             for k in kwargs:
                 if k == "__class__":
                     continue
                 if k == "created_at" or k == "updated_at":
-                    kwargs[k] = datetime.strptime(kwargs[k], '%Y-%m-%dT%H:%M:%S.%f')
+                    kwargs[k] = datetime.strptime(kwargs[k], time_fmt)
                 setattr(self, k, kwargs[k])
         BaseModel.count += 1
 
