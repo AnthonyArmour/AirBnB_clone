@@ -123,6 +123,7 @@ class HBNBCommand(cmd.Cmd):
             return
         if args[0] not in self.class_lst:
             print("** class doesn't exist **")
+            return
         elif len(args) < 2:
             print("** instance id missing **")
             return
@@ -136,8 +137,10 @@ class HBNBCommand(cmd.Cmd):
                 return
         if len(args) < 3:
             print("** attribute name missing **")
+            return
         elif len(args) < 4:
             print("** value missing **")
+            return
         else:
             dic = models.storage._FileStorage__objects[key]
             try:
