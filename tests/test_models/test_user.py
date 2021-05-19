@@ -5,7 +5,7 @@
 
 import unittest
 import os
-from models.user.py import User
+from models.user import User
 from models.engine.file_storage import FileStorage
 
 

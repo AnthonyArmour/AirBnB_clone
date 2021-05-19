@@ -5,7 +5,7 @@
 
 import unittest
 import os
-from models.amenity.py import Amenity
+from models.amenity import Amenity
 from models.engine.file_storage import FileStorage
 
 
