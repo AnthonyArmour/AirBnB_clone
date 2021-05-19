@@ -3,7 +3,8 @@
 
 
 import cmd
-import string, sys
+import string
+import sys
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -14,12 +15,20 @@ from models.review import Review
 from models.engine.file_storage import FileStorage
 import models
 
+
 class HBNBCommand(cmd.Cmd):
+
     """A class:
         The class creates a console for updating the storage engine
     """
-    class_lst = ["BaseModel", "User", "State", "City"
-                 , "Amenity", "Place", "Review"]
+    class_lst = [
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Amenity",
+        "Place",
+        "Review"]
     prompt = "(hbnb) "
 
     def do_EOF(self, arg):
@@ -106,7 +115,8 @@ class HBNBCommand(cmd.Cmd):
             if arg in self.class_lst:
                 for k in models.storage._FileStorage__objects:
                     if arg in k:
-                        lst.append(str(models.storage._FileStorage__objects[k]))
+                        lst.append(
+                            str(models.storage._FileStorage__objects[k]))
             else:
                 print("** class doesn't exist **")
         else:
@@ -151,11 +161,11 @@ class HBNBCommand(cmd.Cmd):
             dic = models.storage._FileStorage__objects[key]
             try:
                 attr = getattr(dic, args[2])
-                if type(attr) is int:
+                if isinstance(attr, int):
                     setattr(dic, args[2], int(args[3][1:-1]))
-                elif type(attr) is float:
+                elif isinstance(attr, float):
                     setattr(dic, args[2], float(args[3][1:-1]))
-                elif type(attr) is str:
+                elif isinstance(attr, str):
                     setattr(dic, args[2], str(args[3][1:-1]))
             except:
                 setattr(dic, args[2], str(args[3][1:-1]))
