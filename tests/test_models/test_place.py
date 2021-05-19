@@ -87,7 +87,7 @@ class TestUser(unittest.TestCase):
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         u1 = Place()
-        self.assertIsInstance(u1.amenity_ids, str)
+        self.assertIsInstance(u1.amenity_ids, list)
 
     if __name__ == '__main__':
         unittest.main()
