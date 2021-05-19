@@ -64,7 +64,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             for key in models.storage._FileStorage__objects:
-                if args[1] in key:
+                if args[1] in key and args[0] in key:
                     print(str(models.storage._FileStorage__objects[key]))
                     sig = 1
             if sig == 0:
@@ -85,7 +85,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             for key in models.storage._FileStorage__objects:
-                if args[1] in key:
+                if args[1] in key and args[0] in key:
                     new_key = key
                     sig = 1
             if sig == 0:
@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             for k in models.storage._FileStorage__objects:
-                if args[1] in k:
+                if args[1] in k and args[0] in k:
                     key = k
                     sig = 1
             if sig == 0:
