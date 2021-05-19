@@ -43,5 +43,5 @@ class TestUser(unittest.TestCase):
         u1.last_name = "blah"
         self.assertIsNot(u1.last_name, None)
 
-    if __name__ == '__main__':
-        unittest.main()
+if __name__ == '__main__':
+    unittest.main()
