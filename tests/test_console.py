@@ -52,7 +52,25 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             with self.assertRaises(SystemExit):
                 HBNBCommand().onecmd("quit")
-#            self.assertEqual(f.getvalue(), "")
+
+    def test_basemodel(self):
+        if os.path.exists(fs._FileStorage__file_path):
+            os.remove(fs._FileStorage__file_path)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            bm_id = f.getvalue()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show BaseModel {}".format(bm_id[:-1]))
+            bm = f.getvalue()
+        self.assertIn(bm_id[:-1], bm)
+        HBNBCommand().onecmd("update BaseModel {} first_name 'John'".format(bm_id[:-1]))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all BaseModel")
+            self.assertIn("'John'", f.getvalue())
+        HBNBCommand().onecmd("destroy BaseModel {}".format(bm_id[:-1]))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show BaseModel {}".format(bm_id[:-1]))
+            self.assertEqual(f.getvalue(), "** no instance found **\n")
 
 if __name__ == '__main__':
         unittest.main()
