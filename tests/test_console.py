@@ -3,7 +3,6 @@
 
 
 from io import StringIO
-import io
 import sys
 import unittest
 from unittest.mock import patch
@@ -14,30 +13,24 @@ from models.base_model import BaseModel
 from console import HBNBCommand
 
 
+help_str = ("\nDocumented commands (type help <topic>):\n"
+            "========================================\n"
+            "EOF  all  create  destroy  help  quit  show  update\n\n")
+help_all = ("syntax: all 'class name'\n"
+            "-- prints the string representation of all instances by input class name\n")
+
+fs = FileStorage()
+
 
 class TestConsole(unittest.TestCase):
     """A class to test console"""
 
-    def test_show_help(self):
+    def test_help(self):
+        if os.path.exists(fs._FileStorage__file_path):
+            os.remove(fs._FileStorage__file_path)
         with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("help show")
-                self.assertIsInstance(f.getvalue().strip(), str)
-    def test_all_help(self):
-        with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("help all")
-                self.assertIsInstance(f.getvalue().strip(), str)
-    def test_update_help(self):
-        with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("help update")
-                self.assertIsInstance(f.getvalue().strip(), str)
-    def test_destroy_help(self):
-        with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("help destroy")
-                self.assertIsInstance(f.getvalue().strip(), str)
-    def test_create_help(self):
-        with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("help create")
-                self.assertIsInstance(f.getvalue().strip(), str)
+                HBNBCommand().onecmd("help")
+                self.assertEqual(f.getvalue(), help_str)
 
 if __name__ == '__main__':
         unittest.main()
