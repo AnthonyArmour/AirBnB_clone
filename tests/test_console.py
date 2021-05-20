@@ -29,8 +29,29 @@ class TestConsole(unittest.TestCase):
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("help")
-                self.assertEqual(f.getvalue(), help_str)
+            HBNBCommand().onecmd("help")
+            self.assertEqual(f.getvalue(), help_str)
+
+    def test_emptyline(self):
+        if os.path.exists(fs._FileStorage__file_path):
+            os.remove(fs._FileStorage__file_path)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("\n")
+            self.assertEqual(f.getvalue(), "")
+
+    def test_EOF(self):
+        if os.path.exists(fs._FileStorage__file_path):
+            os.remove(fs._FileStorage__file_path)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("EOF")
+            self.assertEqual(f.getvalue(), "")
+
+    def test_quit(self):
+        if os.path.exists(fs._FileStorage__file_path):
+            os.remove(fs._FileStorage__file_path)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("quit")
+            self.assertEqual(f.getvalue(), "")
 
 if __name__ == '__main__':
         unittest.main()
