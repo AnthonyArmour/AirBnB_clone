@@ -50,8 +50,9 @@ class TestConsole(unittest.TestCase):
         if os.path.exists(fs._FileStorage__file_path):
             os.remove(fs._FileStorage__file_path)
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("quit")
-            self.assertEqual(f.getvalue(), "")
+            with self.assertRaises(SystemExit):
+                HBNBCommand().onecmd("quit")
+#            self.assertEqual(f.getvalue(), "")
 
 if __name__ == '__main__':
         unittest.main()
