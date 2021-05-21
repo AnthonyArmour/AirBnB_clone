@@ -72,5 +72,29 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd("show BaseModel {}".format(bm_id[:-1]))
             self.assertEqual(f.getvalue(), "** no instance found **\n")
 
+    def test_basemodel_method_calls(self):
+        if os.path.exists(fs._FileStorage__file_path):
+            os.remove(fs._FileStorage__file_path)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            bm_id = f.getvalue()
+            bm_id = bm_id[:-1]
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.all()")
+            self.assertIn(bm_id, f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.count()")
+            self.assertEqual(f.getvalue(), "3\n")
+        HBNBCommand().onecmd("BaseModel.update('{}".format(bm_id) + "', 'first_name', 'John')")
+        HBNBCommand().onecmd("BaseModel.update('{}".format(bm_id) + "', {'last_name': 'Doe', 'age': 89})")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.show({})".format(bm_id))
+            self.assertIn('John', f.getvalue())
+            self.assertIn('Doe', f.getvalue())
+        HBNBCommand().onecmd("BaseModel.destroy({})".format(bm_id))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show BaseModel {}".format(bm_id))
+            self.assertEqual(f.getvalue(), "** no instance found **\n")
+
 if __name__ == '__main__':
         unittest.main()
