@@ -17,7 +17,8 @@ help_str = ("\nDocumented commands (type help <topic>):\n"
             "========================================\n"
             "EOF  all  create  destroy  help  quit  show  update\n\n")
 help_all = ("syntax: all 'class name'\n"
-            "-- prints the string representation of all instances by input class name\n")
+            "-- prints the string representation of all"
+            " instances by input class name\n")
 
 fs = FileStorage()
 
@@ -63,7 +64,8 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd("show BaseModel {}".format(bm_id[:-1]))
             bm = f.getvalue()
         self.assertIn(bm_id[:-1], bm)
-        HBNBCommand().onecmd("update BaseModel {} first_name 'John'".format(bm_id[:-1]))
+        HBNBCommand().onecmd("update BaseModel "
+                             "{} first_name 'John'".format(bm_id[:-1]))
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("all BaseModel")
             self.assertIn("'John'", f.getvalue())
@@ -85,8 +87,10 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("BaseModel.count()")
             self.assertEqual(f.getvalue(), "3\n")
-        HBNBCommand().onecmd("BaseModel.update('{}".format(bm_id) + "', 'first_name', 'John')")
-        HBNBCommand().onecmd("BaseModel.update('{}".format(bm_id) + "', {'last_name': 'Doe', 'age': 89})")
+        HBNBCommand().onecmd("BaseModel.update('{}".format(bm_id) +
+                             "', 'first_name', 'John')")
+        HBNBCommand().onecmd("BaseModel.update('{}".format(bm_id) +
+                             "', {'last_name': 'Doe', 'age': 89})")
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("BaseModel.show({})".format(bm_id))
             self.assertIn('John', f.getvalue())
