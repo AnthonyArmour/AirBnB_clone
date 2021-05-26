@@ -49,6 +49,7 @@ h4 {
     list-style-type: none;
     padding-left: 30px;
     display: none;
+    position: relative;
 }
 
 .popover ul {
