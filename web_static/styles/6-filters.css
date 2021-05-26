@@ -58,6 +58,15 @@ h4 {
 
 .amenities .popover ul {
     padding-left: 0px;
+    margin-top: 10px;
+}
+
+.amenities .popover li:nth-child(1) {
+    margin-top: 30px;
+}
+
+.popover li:last-child {
+    margin-bottom: 30px;
 }
 
 .popover li {
